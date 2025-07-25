@@ -14,7 +14,21 @@ import level03.exercise01.paymentMethods.PaypalPayment;
  */
 
 public class ApplicationController {
+    private static ApplicationController instance;
 
+    private ApplicationController() {
+    }
+
+    public static ApplicationController getInstance() {
+        if (instance == null) {
+            synchronized (ApplicationController.class) {
+                if (instance == null) {
+                    instance = new ApplicationController();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void run() {
         ShoeStore shoeStore = new ShoeStore();
@@ -28,4 +42,3 @@ public class ApplicationController {
         shoeStore.sellShoes(220.00, bankDebit);
     }
 }
-

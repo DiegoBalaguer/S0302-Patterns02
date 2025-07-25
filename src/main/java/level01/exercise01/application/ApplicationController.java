@@ -13,20 +13,29 @@ import level01.exercise01.model.VegetarianPizzaBuilder;
  */
 
 public class ApplicationController {
+    private static ApplicationController instance;
 
+    private ApplicationController() {
+    }
+
+    public static ApplicationController getInstance() {
+        if (instance == null) {
+            synchronized (ApplicationController.class) {
+                if (instance == null) {
+                    instance = new ApplicationController();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void run() {
-
-        PizzaMaster pizzaMaster;
-
         PizzaBuilder hawaiianBuilder = new HawaiianPizzaBuilder();
-        pizzaMaster = new PizzaMaster(hawaiianBuilder);
-        Pizza hawaiian = pizzaMaster.preparePizza();
+        Pizza hawaiian = PizzaMaster.getInstance().preparePizza(hawaiianBuilder);
         System.out.println(hawaiian);
 
         PizzaBuilder vegetarianBuilder = new VegetarianPizzaBuilder();
-        pizzaMaster = new PizzaMaster(vegetarianBuilder);
-        Pizza vegetarian = pizzaMaster.preparePizza();
+        Pizza vegetarian = PizzaMaster.getInstance().preparePizza(vegetarianBuilder);
         System.out.println(vegetarian);
     }
 }

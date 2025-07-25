@@ -11,10 +11,7 @@ import level03.exercise01.application.ApplicationController;
 public class Main {
 
     public static void main(String[] args) {
-
-        ApplicationController applicationController = new ApplicationController();
-
-        applicationController.run();
+        ApplicationController.getInstance().run();
 
         System.out.println("PROCESS FINISHED...");
     }

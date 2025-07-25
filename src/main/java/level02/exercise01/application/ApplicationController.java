@@ -11,17 +11,35 @@ import level02.exercise01.observer.StockObserver;
  */
 
 public class ApplicationController {
+    private static ApplicationController instance;
 
+    private ApplicationController() {
+    }
+
+    public static ApplicationController getInstance() {
+        if (instance == null) {
+            synchronized (ApplicationController.class) {
+                if (instance == null) {
+                    instance = new ApplicationController();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void run() {
-        StockAgent stockAgent = new StockAgent();
+        StockAgent stockAgent = StockAgent.getInstance();
 
-        stockAgent.addObserver(new Agency("Agency01"));
-        stockAgent.addObserver(new Agency("Agency02"));
+        Agency agency01 = new Agency("Agency 01");
+        Agency agency02 = new Agency("Agency 02");
 
-        stockAgent.notifyObservers("UP");
-        stockAgent.notifyObservers("DOWN");
+        stockAgent.addObserver(agency01);
+        stockAgent.addObserver(agency02);
 
+        stockAgent.setStockExchange("UP");
+        stockAgent.setStockExchange("DOWN");
+
+        stockAgent.delObserver(agency01);
     }
 }
 

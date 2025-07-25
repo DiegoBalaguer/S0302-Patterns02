@@ -19,5 +19,12 @@ public class Agency implements StockObserver {
     public void update(String stockStatus) {
         System.out.println(name + " is now informed of the status of the Stock Exchange: " + stockStatus);
     }
+
+    @Override
+    public String toString() {
+        return "Agency{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
 

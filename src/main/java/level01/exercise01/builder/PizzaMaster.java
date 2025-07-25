@@ -9,13 +9,25 @@ import level01.exercise01.model.Pizza;
  */
 
 public class PizzaMaster {
-    private PizzaBuilder pizzaBuilder;
+    private static PizzaMaster instance;
+    //private PizzaBuilder pizzaBuilder;
 
-    public PizzaMaster(PizzaBuilder pizzaBuilder) {
-        this.pizzaBuilder = pizzaBuilder;
+
+    private PizzaMaster() {
     }
 
-    public Pizza preparePizza() {
+    public static PizzaMaster getInstance() {
+        if (instance == null) {
+            synchronized (PizzaMaster.class) {
+                if (instance == null) {
+                    instance = new PizzaMaster();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public Pizza preparePizza(PizzaBuilder pizzaBuilder) {
         pizzaBuilder.setSize();
         pizzaBuilder.setDough();
         pizzaBuilder.setToppings();
